@@ -71,7 +71,6 @@
             background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            animation: fadeIn 0.5s;
         }
 
         .modal-content {
@@ -86,8 +85,10 @@
 
         /* Adjusts layout for Shorts */
         .modal-short {
-            max-width: 60%;
-            max-height: 60%;
+            width: 360px;  /* Standard Shorts player width */
+            height: 640px; /* Standard Shorts player height */
+            max-width: 90vw; /* Responsive max width */
+            max-height: 90vh; /* Responsive max height */
         }
 
         /* Adjusts layout for regular videos */
@@ -114,11 +115,6 @@
         iframe {
             width: 100%;
             height: 100%;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         @keyframes scaleIn {
@@ -154,10 +150,13 @@
             if (videoURL.includes('/shorts/')) {
                 isShort = true;
                 videoId = videoURL.split('/shorts/')[1].split('?')[0];
+                modalContent.classList.add('modal-short'); // Apply the shorts class
             } else if (videoURL.includes('v=')) {
                 videoId = videoURL.split('v=')[1].split('&')[0];
+                modalContent.classList.remove('modal-short'); // Remove shorts class
             } else if (videoURL.includes('/embed/')) {
                 videoId = videoURL.split('/embed/')[1].split('?')[0];
+                modalContent.classList.remove('modal-short'); // Remove shorts class
             }
 
             if (videoId) {
